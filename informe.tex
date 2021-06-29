@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+\usepackage[spanish]{layout}
+\usepackage[article]{ragged2e}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{proof}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\setlength{\parindent}{0pt}
+
+\title{
+    Trabajo Práctico Machine Learning \\
+    \large Introducción a la Inteligencia Artificial}
+\author{Mellino, Natalia \and Farizano, Juan Ignacio}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Introducción al dataset}
+
+Trabajaremos sobre el conjunto de datos \emph{yeast} donde entrenaremos
+a nuestros modelos para que clasifiquen distintos tipos de levadura. \\
+
+Este dataset consta de 9 atributos, el primero es simplemente un nombre de
+secuencia y por lo tanto se ignora ya que no tiene relevancia.
+Los restantes atributos son: MCG, GVH, ALM, MIT, ERL, POX, VAC, y NUC. \\
+
+Cada instancia será clasificada en alguna de las siguientes 10 clases, donde 
+originalmente en los datos dados se distribuyen de la siguiente manera:  
+
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      Clase     & Cantidad     \\ \hline
+      CYT       & 463          \\ \hline
+      NUC       & 429          \\ \hline
+      MIT       & 244          \\ \hline
+      ME3       & 163          \\ \hline
+      ME2       & 51           \\ \hline
+      ME1       & 44           \\ \hline
+      EXC       & 37           \\ \hline
+      VAC       & 30           \\ \hline
+      POX       & 20           \\ \hline
+      ERL       & 5            \\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\section*{Entrenamiento del modelo}
+
+Al entrenar el modelo, utilizamos el método de \emph{k-fold cross validation},
+donde elegimos un $k$ igual 5, para obtener nuestros conjuntos de entrenamiento
+y validación. \\
+
+Una vez obtenidos estos conjuntos, procedemos a crear nuestros árboles de 
+decisión utilizando la librería \emph{rpart} y su función homónima. \\
+
+En primera instancia, como criterio elegido para dividir los nodos utilizamos el 
+método de Ganancia de Información y luego, repetimos el mismo proceso pero con el
+la medida de Impureza de Gini. En la siguiente sección podemos observar un análisis
+más detallado sobre ambos modelos obtenidos y una comparación entre estos dos métodos.
+
+\section*{Resultados}
+
+\subsection*{Utilizando Ganancia de Información}
+\subsubsection*{Accuracy}
+\subsubsection*{Precision y Recall}
+\subsubsection*{Pruning}
+
+\subsection*{Utilizando el método de Gini}
+\subsubsection*{Accuracy}
+\subsubsection*{Precision y Recall}
+\subsubsection*{Pruning}
+
+\subsection*{Comparación}
+
+\section*{Conclusiones}
+
+\end{document}
