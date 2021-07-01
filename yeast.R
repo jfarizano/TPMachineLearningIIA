@@ -29,8 +29,12 @@ predictYeastGain <- predict(fitGain, yeastTest[,-9], type = 'class')
 matrixGain <- table(predictYeastGain, yeastTest[,9])
 acuraccyGain <- sum(diag(matrixGain)) / sum(matrixGain)
 precisionGain <- diag(matrixGain) / rowSums(matrixGain)
+precisionGain[is.nan(precisionGain)] <- 0
 recallGain <- diag(matrixGain) / colSums(matrixGain)
-measuresGain <- rbind(precisionGain, recallGain)
+recallGain[is.nan(recallGain)] <- 0
+measuresGain <- rbind(acuraccyGain, mean(precisionGain), mean(recallGain))
+rownames(measuresGain) <- c("acuraccy", "precision", "recall")
+prGain <- rbind(precisionGain, recallGain)
 
 predictYeastGainTrain <- predict(fitGain, yeastTrain[,-9], type = 'class')
 matrixGainTrain <- table(predictYeastGainTrain, yeastTrain[,9])
@@ -60,8 +64,12 @@ predictYeastGini <- predict(fitGini, yeastTest[,-9], type = 'class')
 matrixGini <- table(predictYeastGini, yeastTest[,9])
 acuraccyGini <- sum(diag(matrixGini)) / sum(matrixGini)
 precisionGini <- diag(matrixGini) / rowSums(matrixGini)
+precisionGini[is.nan(precisionGini)] <- 0
 recallGini <- diag(matrixGini) / colSums(matrixGini)
-measuresGini <- rbind(precisionGini, recallGini)
+recallGini[is.nan(recallGini)] <- 0
+measuresGini <- rbind(acuraccyGini, mean(precisionGini), mean(recallGini))
+rownames(measuresGini) <- c("acuraccy", "precision", "recall")
+prGini <- rbind(precisionGini, recallGini)
 
 predictYeastGiniTrain <- predict(fitGini, yeastTrain[,-9], type = 'class')
 matrixGiniTrain <- table(predictYeastGiniTrain, yeastTrain[,9])
@@ -85,6 +93,12 @@ acuraccy <- rbind(acuraccyGainTrain, acuraccyGain, acuraccyGainPruned, acuraccyG
 precision <- rbind (precisionGain, precisionGainPruned, precisionGini, precisionGiniPruned)
 recall <- rbind(recallGain, recallGainPruned, recallGini, recallGiniPruned)
 
+measuresGeneral <- cbind(measuresGain, measuresGini)
+colnames(measuresGeneral) <- c("Gain", "Gini")
+
 print(acuraccy)
 print(precision)
 print(recall)
+print(measuresGeneral)
+print(matrixGain)
+print(matrixGini)
